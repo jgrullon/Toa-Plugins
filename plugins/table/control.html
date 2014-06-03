@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css">
+	<script src="../style/jQuery/jquery-1.8.2.js"></script>
+	<script src="../style/jQuery/jquery-ui.js"></script>
+	<link href = "../style/css/bootstrap-3.1.1-dist/css/bootstrap.min.css" rel = "stylesheet">
+	<script src ="../style/css/bootstrap-3.1.1-dist/js/bootstrap.js"></script>
+	<link rel="stylesheet"type="text/css"href="../style/css/flow_table.css"/>
+	<script src="../style/jQuery/jquery-ui-timepicker-0.3.1/jquery.ui.timepicker.js"></script>
+	<link href = "../style/jQuery/jquery-ui-timepicker-0.3.1/jquery.ui.timepicker.css" rel = "stylesheet">
+	<script src="ftable.js"></script>
+</head>
+
+<body>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div id = "attributes_wrapper">
+			<div id = "header">
+				<span style = "margin-right:15px;font-weight:bold;font:verdana,georgia,arial;"> Add Attributes</span> <span style = "margin:auto;"> Select Flow </span>
+			</div>
+
+			<div id = "attribute_buttons" >
+				
+				<div class="btn-group btn-group-lg btn-default"> 
+					<div class="btn-group btn-group-lg ">
+						<a data-toggle="dropdown" class="btn btn-default btn-lg">IP Address</a>
+						
+					    <ul class="dropdown-menu dropdown_attributes">
+							<li class = "ip"><a>Source IP</a></li>
+							<li class = "ip"><a>Destination IP</a></li>
+							<li class = "ip"><a>Source and Destination IP</a></li>
+							<li class = "ip"><a>Source or Destination IP</a></li>
+						</ul>
+					</div>
+					<div class="btn-group btn-group-lg ">
+						<a data-toggle="dropdown" class="btn btn-default btn-lg">Port</a>
+						
+					    <ul class="dropdown-menu dropdown_attributes">
+							<li class = "port"><a>Source Port</a></li>
+							<li class = "port"><a>Destination Port</a></li>
+							<li class = "port"><a>Source and Destination Port</a></li>
+							<li class = "port"><a>Source or Destination Port</a></li>
+						</ul>
+					</div>
+					<div class="btn-group btn-group-lg ">
+						<a data-toggle="dropdown" class="btn btn-default btn-lg">AS</a>
+						
+					    <ul class="dropdown-menu dropdown_attributes">
+							<li class = "as"><a>Source AS</a></li>
+							<li class = "as"><a>Destination AS</a></li>
+							<li class = "as"><a>Source and Destination AS</a></li>
+							<li class = "as"><a>Source or Destination AS</a></li>
+						</ul>
+					</div>
+					<div class="btn-group btn-group-lg ">
+						<a id = "interface" data-toggle="dropdown" class="btn btn-default btn-lg">Interface</a>
+						
+					    <ul class="dropdown-menu dropdown_attributes">
+							<li><a>Source Interface</a></li>
+							<li><a>Destination Interface</a></li>
+							<li><a>Source and Destination Interface</a></li>
+							<li><a>Source or Destination Interface</a></li>
+						</ul>
+					</div>
+				
+					
+
+					<!-- <button type="button" class="btn btn-default">IP Address</button>
+					<button type="button" class="btn btn-default">Port</button>
+					<button type="button" class="btn btn-default">AS</button>
+					<button type="button" class="btn btn-default">Interface</button> -->
+				</div> 
+			</div> <!--  attribute buttons -->
+		</div>
+		
+	</nav>
+
+
+	<div id = "ftable_wrapper" class="panel panel-default">
+		<!-- Default panel contents -->
+		<div class="form-group table_filter">
+			<label class="control-label" for="global_filter_menu">Search by: </label>
+			<select class = "form-control" id = "global_filter_menu">
+				<option value = "1">Source IP</option>
+				<option value = "2">Destination IP</option>
+				<option value="3">Source Port</option>
+				<option value="4">Destination Port</option>
+				<option value="5">Octets</option>
+				<option value="6">AS number</option>
+			</select>
+			<input id = "global_filter" type="text" class="form-control" placeholder = "search">
+			<button id = "filter_submit_btn" type="submit" class="btn btn-default">Submit</button>
+			<div id='match_result'></div>
+		</div>
+		<div class="panel-heading">
+			Flows Table
+		</div>
+		<div >
+			<table id = 'flow_table' class="table table-hover" cellspacing="0">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Source IP</th>
+						<th>Destination IP</th>
+						<th>Source Port</th>
+						<th>Destination Port</th>
+						<th>Octets</th>
+						<th>AS number</th>
+					</tr>
+				</thead>
+				<tbody id = "table_content">
+			
+
+					<div id = "no_match" style = 'display:none;text-align:center;font-weight:bold;'>​No Match Result​</div>
+				</tbody>
+
+			</table>
+
+		</div>
+	</div>
+		<div id='settings'>
+
+			<div id = "sett_title">Settings</div>
+			<div id ='updwn'><button id = 'chlBtn' class = 'btn dflt_cstm_btn'>HIDE MENU</button></div>
+			<div id ='main_content'>
+			<input id = 'flow_date' type = 'hidden' value = '%s'>
+			<div>
+	        	<h4> Select Flow </h4>
+				<div align="left">
+					<label class="control-label" for="datepicker">Date: </label>
+					<input type="text" class = "text_input form-control" placeholder='Click to set date' id="datepicker" size = "17" maxlength = "10"/>
+					<label class="control-label" for="timepicker">Time: </label>
+	                <input class = "text_input form-control" type = "text" placeholder = 'Click to set time' id = "timepicker"/>
+					<h4>Filter Connections</h4>
+					<div id = "add_opt">
+						<h5>IP Address: </h5>
+						<div id = "IP_ADDRESS">
+							<input type = "text" class = "text_input form-control"> & <input type = "text" class = "text_input form-control">
+						<div>
+					</div>
+				</div>
+			</div>
+
+</body>
+
+
